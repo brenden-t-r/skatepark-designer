@@ -1002,7 +1002,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b14180ecc525ab4c9433020f52b951a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _camera: {fileID: 519420031}
+  _camera: {fileID: 519420032}
   _ppCamera: {fileID: 519420030}
   btnLeft: {fileID: 2046773274}
   btnRight: {fileID: 328246647}
@@ -1114,7 +1114,12 @@ MonoBehaviour:
   - {fileID: 62206213}
   - {fileID: 10773655}
   - {fileID: 498364756}
-  - {fileID: 1029300972}
+  - {fileID: 498364756}
+  tiles:
+  - {fileID: 11400000, guid: c1e49470fc42e144696aedb48f2ccbbd, type: 2}
+  - {fileID: 11400000, guid: a62f748ad9b54f839aa16670c2e54616, type: 2}
+  - {fileID: 11400000, guid: a3fa18f93baf47f9b5d68b806c7749e7, type: 2}
+  - {fileID: 11400000, guid: 424e82a56d43450ea8c73fffa9281deb, type: 2}
 --- !u!1 &419609095
 GameObject:
   m_ObjectHideFlags: 0

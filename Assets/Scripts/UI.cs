@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.U2D;
 using UnityEngine.UI;
@@ -8,7 +6,7 @@ public class UI : MonoBehaviour
 {
     private readonly float PAN_SPEED = 1f;
     private readonly int ZOOM_SPEED = 2;
-    [SerializeField] private Camera _camera;
+    [SerializeField] private Transform _camera;
     [SerializeField] private PixelPerfectCamera _ppCamera;
     [SerializeField] private Button btnLeft;
     [SerializeField] private Button btnRight;
@@ -28,25 +26,25 @@ public class UI : MonoBehaviour
     void PanLeft()
     {
         Vector3 pos = _camera.transform.position;
-        _camera.transform.position = new Vector3(pos.x - PAN_SPEED, pos.y, pos.z);
+        _camera.position = new Vector3(pos.x - PAN_SPEED, pos.y, pos.z);
     }
 
     void PanRight()
     {
         Vector3 pos = _camera.transform.position;
-        _camera.transform.position = new Vector3(pos.x + PAN_SPEED, pos.y, pos.z);
+        _camera.position = new Vector3(pos.x + PAN_SPEED, pos.y, pos.z);
     }
     
     void PanUp()
     {
         Vector3 pos = _camera.transform.position;
-        _camera.transform.position = new Vector3(pos.x, pos.y + PAN_SPEED, pos.z);
+        _camera.position = new Vector3(pos.x, pos.y + PAN_SPEED, pos.z);
     }
     
     void PanDown()
     {
         Vector3 pos = _camera.transform.position;
-        _camera.transform.position = new Vector3(pos.x, pos.y - PAN_SPEED, pos.z);
+        _camera.position = new Vector3(pos.x, pos.y - PAN_SPEED, pos.z);
     }
 
     void ZoomOut()

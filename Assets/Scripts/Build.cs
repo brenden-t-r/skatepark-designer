@@ -8,7 +8,6 @@ public class Build : MonoBehaviour, IPointerClickHandler
     [SerializeField] private Camera mainCamera;
     [SerializeField] private Grid grid;
     [SerializeField] private Tilemap tilemap;
-    [SerializeField] private Tile _tile;
     
     private Vector3Int GetMousePosition () {
         Vector3 mouseWorldPos = mainCamera.ScreenToWorldPoint(Mouse.current.position.ReadValue());
@@ -19,7 +18,12 @@ public class Build : MonoBehaviour, IPointerClickHandler
     {
         //Debug.Log(tilemap.GetTile(gridPos).name);
         Debug.Log(gridPos);
-        tilemap.SetTile(gridPos, _tile);
+        tilemap.SetTile(gridPos, BuildSettings.selectedPiece);
+    }
+    
+    private void RightClickEvent(Vector3Int gridPos)
+    {
+        tilemap.SetTile(gridPos, null);
     }
 
 
@@ -30,11 +34,10 @@ public class Build : MonoBehaviour, IPointerClickHandler
         switch (eventData.button)
         {
             case PointerEventData.InputButton.Left:
-                Debug.Log("Left Mouse Clicked");
                 ClickEvent(gridPos);
                 break;
             case PointerEventData.InputButton.Right:
-                Debug.Log("Right Mouse Clicked");
+                RightClickEvent(gridPos);
                 break;
             case PointerEventData.InputButton.Middle:
             default:
