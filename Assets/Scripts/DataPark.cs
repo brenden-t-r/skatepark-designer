@@ -22,6 +22,11 @@ public class DataPark : ScriptableObject
 
     public string TilesToJson(List<Tilemap> tilemaps)
     {
+        
+        foreach (var tilemap in tilemaps)
+        {
+            
+        }
         return null;
     }
 
