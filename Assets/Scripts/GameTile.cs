@@ -6,7 +6,7 @@ public class GameTile : Tile
     public enum TileTypes
     {
         BLOCK, BLOCK_HALF, BLOCK_CORNER, 
-        RAMP
+        RAMP, RAMP_FRONT
     }
     
     public TileTypes type;

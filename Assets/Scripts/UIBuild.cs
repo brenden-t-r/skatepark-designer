@@ -44,6 +44,8 @@ public class UIBuild : MonoBehaviour
                 return GameTile.TileTypes.BLOCK_CORNER;
             case "BtnBuildBlockRamp":
                 return GameTile.TileTypes.RAMP;
+            case "BtnBuildBlockRampFront":
+                return GameTile.TileTypes.RAMP_FRONT;
             default:
                 Debug.LogError("Invalid build button name");
                 return GameTile.TileTypes.BLOCK;
