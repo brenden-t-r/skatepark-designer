@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.U2D;
 using UnityEngine.UI;
@@ -13,6 +14,10 @@ public class UI : MonoBehaviour
     [SerializeField] private Button btnUp;
     [SerializeField] private Button btnDown;
     [SerializeField] private Button btnZoomOut, btnZoomIn;
+    [SerializeField] private Button btnSave, btnClear;
+    [SerializeField] private Text textParkName;
+    [SerializeField] private Build _build;
+    
     void Start()
     {
         btnLeft.onClick.AddListener(PanLeft);
@@ -21,6 +26,9 @@ public class UI : MonoBehaviour
         btnDown.onClick.AddListener(PanDown);
         btnZoomOut.onClick.AddListener(ZoomOut);
         btnZoomIn.onClick.AddListener(ZoomIn);
+        btnSave.onClick.AddListener(SavePark);
+        btnClear.onClick.AddListener(ClearPark);
+        textParkName.text = ParkDataSaves.parkData.title;
     }
 
     void PanLeft()
@@ -57,5 +65,15 @@ public class UI : MonoBehaviour
     {
         _ppCamera.refResolutionX /= ZOOM_SPEED;
         _ppCamera.refResolutionY /= ZOOM_SPEED;
+    }
+
+    void SavePark()
+    {
+        _build.SaveMap();
+    }
+
+    void ClearPark()
+    {
+        _build.ClearMap();
     }
 }
