@@ -116,15 +116,31 @@ public class Build : MonoBehaviour, IPointerClickHandler
 
     public void SaveMap()
     {
-        ParkData parkData = ScriptableObject.CreateInstance<ParkData>();
-        parkData.title = "TestPark";
-        parkData.author = "TestAuthor";
-       // parkData.data = ParkDataSaves.TilesToDict(tilemaps);
+        // ParkData parkData = ScriptableObject.CreateInstance<ParkData>();
+        // parkData.title = "TestPark";
+        // parkData.author = "TestAuthor";
+        
+        // Save park
+        ParkData parkData = ParkDataSaves.parkData;
         parkData.maps = ParkDataSaves.TilesToList(tilemaps);
         string json = JsonUtility.ToJson(parkData);
         Debug.Log(json);
         PlayerPrefs.SetString(parkData.title, json);
+        
+        // Update Parks list
+        string parksJson = PlayerPrefs.GetString("Parks");
+        ParkDataSaves.ListWrapper<String> parks = parksJson != "" 
+            ? JsonUtility.FromJson<ParkDataSaves.ListWrapper<String>>(parksJson) 
+            : new ParkDataSaves.ListWrapper<string>();
+        if (!parks.list.Contains(parkData.title))
+        {
+            parks.list.Add(parkData.title);
+        }
+        parksJson = JsonUtility.ToJson(parks);
+        PlayerPrefs.SetString("Parks", parksJson);
         PlayerPrefs.Save();
+        
+        Debug.Log(PlayerPrefs.GetString("Parks"));
     }
 
     public void LoadMap()
@@ -138,17 +154,7 @@ public class Build : MonoBehaviour, IPointerClickHandler
             {
                 tilemap.SetTile(tile.Position, tile.Tile);
             }
-        } 
-        // foreach (var map in tilemaps)
-       // {
-       // if (ParkDataSaves.parkData.data.TryGetValue(map.name, out List<ParkData.SavedTile> tiles))
-            // {
-            //     foreach (var tile in tiles)
-            //     {
-            //         map.SetTile(tile.Position, tile.Tile);
-            //     }
-            // }
-       // }
+        }
     }
     
     public void ClearMap() {

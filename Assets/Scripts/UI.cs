@@ -1,7 +1,7 @@
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.U2D;
 using UnityEngine.UI;
+using Button = UnityEngine.UI.Button;
 
 public class UI : MonoBehaviour
 {
@@ -16,6 +16,14 @@ public class UI : MonoBehaviour
     [SerializeField] private Button btnZoomOut, btnZoomIn;
     [SerializeField] private Button btnSave, btnClear;
     [SerializeField] private Text textParkName;
+    
+    // Save Menu
+    [SerializeField] private GameObject saveMenuPanel;
+    [SerializeField] private InputField saveMenuInputName;
+    [SerializeField] private InputField saveMenuInputAuthor;
+    [SerializeField] private Button saveMenuBtnSave;
+    [SerializeField] private Button saveMenuBtnCancel;
+    
     [SerializeField] private Build _build;
     
     void Start()
@@ -26,9 +34,12 @@ public class UI : MonoBehaviour
         btnDown.onClick.AddListener(PanDown);
         btnZoomOut.onClick.AddListener(ZoomOut);
         btnZoomIn.onClick.AddListener(ZoomIn);
-        btnSave.onClick.AddListener(SavePark);
+        btnSave.onClick.AddListener(SaveMenuOpen);
         btnClear.onClick.AddListener(ClearPark);
+        saveMenuBtnSave.onClick.AddListener(SaveMenuSave);
+        saveMenuBtnCancel.onClick.AddListener(SaveMenuCancel);
         textParkName.text = ParkDataSaves.parkData.title;
+        saveMenuPanel.SetActive(false);
     }
 
     void PanLeft()
@@ -67,13 +78,27 @@ public class UI : MonoBehaviour
         _ppCamera.refResolutionY /= ZOOM_SPEED;
     }
 
-    void SavePark()
-    {
-        _build.SaveMap();
-    }
-
     void ClearPark()
     {
         _build.ClearMap();
+    }
+
+    void SaveMenuOpen()
+    {
+        saveMenuPanel.SetActive(true);
+    }
+
+    void SaveMenuCancel()
+    {
+        saveMenuPanel.SetActive(false);
+    }
+
+    void SaveMenuSave()
+    {
+        ParkDataSaves.parkData.title = saveMenuInputName.text;
+        ParkDataSaves.parkData.author = saveMenuInputAuthor.text;
+        textParkName.text = saveMenuInputName.text;
+        _build.SaveMap();
+        saveMenuPanel.SetActive(false);
     }
 }
