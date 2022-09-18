@@ -24,12 +24,16 @@ public class Build : MonoBehaviour, IPointerClickHandler
 
     private void Start()
     {
+        Debug.Log(0);
         tilemapExtrasRenderer = tilemapExtras.GetComponent<Renderer>();
         activeTilemap = tilemap;
         tilemaps = new List<Tilemap>
             { tilemap, tilemapL1, tilemapL2, tilemapL3 };
+        Debug.Log(2);
         ClearMap();
+        Debug.Log(3);
         LoadMap();
+        Debug.Log(4);
     }
 
     private void Update()
@@ -116,10 +120,6 @@ public class Build : MonoBehaviour, IPointerClickHandler
 
     public void SaveMap()
     {
-        // ParkData parkData = ScriptableObject.CreateInstance<ParkData>();
-        // parkData.title = "TestPark";
-        // parkData.author = "TestAuthor";
-        
         // Save park
         ParkData parkData = ParkDataSaves.parkData;
         parkData.maps = ParkDataSaves.TilesToList(tilemaps);
@@ -145,13 +145,17 @@ public class Build : MonoBehaviour, IPointerClickHandler
 
     public void LoadMap()
     {
+        Debug.Log(ParkDataSaves.parkData.title);
         foreach (var map in ParkDataSaves.parkData.maps)
         {
             int index = tilemaps.FindIndex((tilemap) => tilemap.name.Equals(map.name));
+            Debug.Log("index="+index);
             if (index == -1) continue;
             Tilemap tilemap = tilemaps[index];
+            Debug.Log(tilemap.name);
             foreach (var tile in map.tiles)
             {
+                Debug.Log("setTile," + tile.Position.x + "," +  tile.Position.y);
                 tilemap.SetTile(tile.Position, tile.Tile);
             }
         }

@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 public class StartMenuController : MonoBehaviour
 {
-    [SerializeField] private Button btnNew;
+    [SerializeField] private Button btnNew, btnExit;
     [SerializeField] private GameObject viewportContent;
     [SerializeField] private GameObject parkMenuOptionPrefab;
     private Dictionary<string, GameObject> parkMenuOptionsMap = new Dictionary<string, GameObject>();
@@ -16,6 +16,7 @@ public class StartMenuController : MonoBehaviour
     {
         LoadSavedParks();
         btnNew.onClick.AddListener(NewPark);
+        btnExit.onClick.AddListener(() => Application.Quit());
     }
 
     void LoadSavedParks()
