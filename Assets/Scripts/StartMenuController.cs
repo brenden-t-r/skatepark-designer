@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -6,8 +8,9 @@ using UnityEngine.UI;
 public class StartMenuController : MonoBehaviour
 {
     [SerializeField] private Button btnNew;
-    [SerializeField] private Transform viewportContent;
+    [SerializeField] private GameObject viewportContent;
     [SerializeField] private GameObject parkMenuOptionPrefab;
+    private Dictionary<string, GameObject> parkMenuOptionsMap = new Dictionary<string, GameObject>();
     
     void Start()
     {
@@ -33,22 +36,18 @@ public class StartMenuController : MonoBehaviour
             }
             ParkData parkData = ScriptableObject.CreateInstance<ParkData>();
             JsonUtility.FromJsonOverwrite(parkDataJson, parkData);
-            addParkMenuOption(i, parkData);
+            addParkMenuOption(parkData);
         }
     }
 
-    void addParkMenuOption(int index, ParkData parkData)
+    void addParkMenuOption(ParkData parkData)
     {
-        GameObject prefab = Instantiate(parkMenuOptionPrefab, viewportContent);
-        RectTransform rectTransform = prefab.GetComponent<RectTransform>();
-        rectTransform.anchorMin = new Vector2(0, 1);
-        rectTransform.anchorMax = new Vector2(1, 1);
-        rectTransform.sizeDelta = new Vector2(0, 0);
-        rectTransform.anchoredPosition = new Vector2(0, index * -120f);
+        GameObject prefab = Instantiate(parkMenuOptionPrefab, viewportContent.transform);
         ParkMenuOption option = prefab.GetComponentInChildren<ParkMenuOption>();
         option.textName.text = parkData.title;
-        Button btnLoad = option.btnLoad;
-        btnLoad.onClick.AddListener(() => LoadPark(parkData));
+        option.btnLoad.onClick.AddListener(() => LoadPark(parkData));
+        option.btnDelete.onClick.AddListener(() => DeletePark(parkData.title));
+        parkMenuOptionsMap.Add(parkData.title, prefab);
     }
 
     public void NewPark()
@@ -74,5 +73,26 @@ public class StartMenuController : MonoBehaviour
     {
         ParkDataSaves.parkData = parkData;
         SceneManager.LoadScene("EditorScene");
+    }
+
+    public void DeletePark(string parkName)
+    {
+        // Delete park
+        PlayerPrefs.DeleteKey(parkName);
+        
+        // Delete park from park list
+        string parksJson = PlayerPrefs.GetString("Parks");
+        ParkDataSaves.ListWrapper<String> parks = parksJson != "" 
+            ? JsonUtility.FromJson<ParkDataSaves.ListWrapper<String>>(parksJson) 
+            : new ParkDataSaves.ListWrapper<string>();
+        parks.list = parks.list.Where(x => !x.Equals(parkName)).ToList();
+        parksJson = JsonUtility.ToJson(parks);
+        PlayerPrefs.SetString("Parks", parksJson);
+        
+        // Delete park menu option
+        // TODO
+        parkMenuOptionsMap.TryGetValue(parkName, out GameObject option);
+        Destroy(option);
+        parkMenuOptionsMap.Remove(parkName);
     }
 }
