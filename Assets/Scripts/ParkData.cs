@@ -15,7 +15,7 @@ public class ParkData : ScriptableObject
     [Serializable]
     public class SavedTile {
         public Vector3Int Position;
-        public Tile Tile;
+        public GameTile Tile;
     }
 
     [Serializable]
