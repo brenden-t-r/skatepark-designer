@@ -156,6 +156,7 @@ public class Build : MonoBehaviour, IPointerClickHandler
                 Debug.Log("setTile," + tile.Position.x + "," +  tile.Position.y);
                 tilemap.SetTile(tile.Position, tile.Tile);
             }
+            tilemap.RefreshAllTiles();
         }
     }
     
