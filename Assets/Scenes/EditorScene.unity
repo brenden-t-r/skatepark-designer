@@ -1857,7 +1857,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: a3fa18f93baf47f9b5d68b806c7749e7, type: 2}
   - {fileID: 11400000, guid: a62f748ad9b54f839aa16670c2e54616, type: 2}
   - {fileID: 11400000, guid: 424e82a56d43450ea8c73fffa9281deb, type: 2}
-  selectedTileType: {fileID: 374120868}
+  selectedTileType: {fileID: 1462052187}
   btnElevationUp: {fileID: 115052586}
   btnElevationDown: {fileID: 1967015119}
 --- !u!114 &396326493
