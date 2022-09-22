@@ -1,0 +1,6 @@
+﻿- UI Dialog prefab / general component
+    - OkText, OkCallback, List<Inputs>, Prompt
+    
+- Cleaning up dependencies
+
+- Reworking serialization system and fix initial load bug
