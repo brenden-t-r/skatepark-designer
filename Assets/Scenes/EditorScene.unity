@@ -1776,6 +1776,60 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!1 &376103181
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 376103183}
+  - component: {fileID: 376103182}
+  m_Layer: 0
+  m_Name: TilemapManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &376103182
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 376103181}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b52b11344b64a529615800f7eb64d95, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  grid: {fileID: 93888350}
+  tilemap: {fileID: 970709859}
+  tilemapL1: {fileID: 2088253705}
+  tilemapL2: {fileID: 765370724}
+  tilemapL3: {fileID: 1609101421}
+  tilemapExtras: {fileID: 41997002}
+  gameTiles:
+  - {fileID: 11400000, guid: c1e49470fc42e144696aedb48f2ccbbd, type: 2}
+  - {fileID: 11400000, guid: a62f748ad9b54f839aa16670c2e54616, type: 2}
+  - {fileID: 11400000, guid: a3fa18f93baf47f9b5d68b806c7749e7, type: 2}
+  - {fileID: 11400000, guid: 424e82a56d43450ea8c73fffa9281deb, type: 2}
+--- !u!4 &376103183
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 376103181}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1280, y: 720, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &385956344
 GameObject:
   m_ObjectHideFlags: 0
@@ -2607,18 +2661,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb0a7562b4b84e54783d40e0b49b69e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mainCamera: {fileID: 519420031}
-  grid: {fileID: 93888350}
-  tilemap: {fileID: 970709859}
-  tilemapL1: {fileID: 2088253705}
-  tilemapL2: {fileID: 765370724}
-  tilemapL3: {fileID: 1609101421}
-  tilemapExtras: {fileID: 41997002}
-  _gameTiles:
-  - {fileID: 11400000, guid: c1e49470fc42e144696aedb48f2ccbbd, type: 2}
-  - {fileID: 11400000, guid: a62f748ad9b54f839aa16670c2e54616, type: 2}
-  - {fileID: 11400000, guid: a3fa18f93baf47f9b5d68b806c7749e7, type: 2}
-  - {fileID: 11400000, guid: 424e82a56d43450ea8c73fffa9281deb, type: 2}
 --- !u!114 &627552585
 MonoBehaviour:
   m_ObjectHideFlags: 0

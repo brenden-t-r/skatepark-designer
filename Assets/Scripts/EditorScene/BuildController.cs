@@ -1,5 +1,3 @@
-using System;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
@@ -9,35 +7,21 @@ namespace EditorScene
 {
     public class BuildController : MonoBehaviour, IPointerClickHandler
     {
-        [SerializeField] private Camera mainCamera;
-        [SerializeField] private Grid grid;
-        [SerializeField] private Tilemap tilemap;
-        [SerializeField] private Tilemap tilemapL1;
-        [SerializeField] private Tilemap tilemapL2;
-        [SerializeField] private Tilemap tilemapL3;
-        [SerializeField] private Tilemap tilemapExtras;
-        private List<Tilemap> tilemaps;
+        private Camera mainCamera;
         private Tilemap activeTilemap;
+        private Tilemap tilemapExtras;
         private Renderer tilemapExtrasRenderer;
         private Tile highlightedTile;
         private Vector3Int highlightedTilePos;
 
-        [SerializeField] private List<GameTile> _gameTiles;
-
-        private List<GameTile> tiles = new List<GameTile>() { new GameTile() };
-        
         private void Start()
         {
-            Debug.Log(0);
+            mainCamera = Camera.main;
+            tilemapExtras = TilemapManager._instance.GetTilemapExtras();
             tilemapExtrasRenderer = tilemapExtras.GetComponent<Renderer>();
-            activeTilemap = tilemap;
-            tilemaps = new List<Tilemap>
-                { tilemap, tilemapL1, tilemapL2, tilemapL3 };
-            Debug.Log(2);
+            activeTilemap = TilemapManager._instance.GetTilemapFromElevation(0);
             ClearMap();
-            Debug.Log(3);
             LoadMap();
-            Debug.Log(4);
         }
 
         private void Update()
@@ -47,9 +31,9 @@ namespace EditorScene
             HoverHighlight(hoverPos);
         }
 
-        private Vector3Int GetMousePosition () {
+        private Vector3Int GetMousePosition() {
             Vector3 mouseWorldPos = mainCamera.ScreenToWorldPoint(Mouse.current.position.ReadValue());
-            return grid.WorldToCell(mouseWorldPos);
+            return TilemapManager._instance.grid.WorldToCell(mouseWorldPos);
         }
 
         private void ClickEvent(Vector3Int gridPos)
@@ -66,24 +50,9 @@ namespace EditorScene
 
         private void SetActiveTilemap()
         {
-            switch (BuildSettingsScriptableObject.elevation)
-            {
-                case 0:
-                    activeTilemap = tilemap;
-                    break;
-                case 1:
-                    activeTilemap = tilemapL1;
-                    break;
-                case 2:
-                    activeTilemap = tilemapL2;
-                    break;
-                case 3:
-                    activeTilemap = tilemapL3;
-                    break;
-                default:
-                    Debug.LogError("Invalid elevation");
-                    break;
-            }
+            activeTilemap = TilemapManager
+                ._instance
+                .GetTilemapFromElevation(BuildSettingsScriptableObject.elevation);
         }
 
         public void OnPointerClick (PointerEventData eventData) {
@@ -124,58 +93,18 @@ namespace EditorScene
 
         public void SaveMap()
         {
-            // Save park
-            ParkData parkData = ParkDataSaves.parkData;
-            parkData.maps = ParkDataSaves.TilesToList(tilemaps);
-            string json = JsonUtility.ToJson(parkData);
-            Debug.Log(json);
-            PlayerPrefs.SetString(parkData.title, json);
-        
-            // Update Parks list
-            string parksJson = PlayerPrefs.GetString("Parks");
-            ParkDataSaves.ListWrapper<String> parks = parksJson != "" 
-                ? JsonUtility.FromJson<ParkDataSaves.ListWrapper<String>>(parksJson) 
-                : new ParkDataSaves.ListWrapper<string>();
-            if (!parks.list.Contains(parkData.title))
-            {
-                parks.list.Add(parkData.title);
-            }
-            parksJson = JsonUtility.ToJson(parks);
-            PlayerPrefs.SetString("Parks", parksJson);
-            PlayerPrefs.Save();
-        
-            Debug.Log(PlayerPrefs.GetString("Parks"));
+            TilemapManager._instance.SaveMap();
         }
 
         public void LoadMap()
         {
-            Debug.Log(ParkDataSaves.parkData.title);
-            foreach (var map in ParkDataSaves.parkData.maps)
-            {
-                int index = tilemaps.FindIndex((x) => x.name.Equals(map.name));
-                Debug.Log("index="+index);
-                if (index == -1) continue;
-                Tilemap tilemap = tilemaps[index];
-                Debug.Log(tilemap.name);
-                foreach (var tile in map.tiles)
-                {
-                    int tileIndex = _gameTiles.FindIndex(x => x.type.Equals(tile.Tile.type));
-                    if (tileIndex == -1) continue;
-                    GameTile tileToPlace = _gameTiles[tileIndex];
-                    Debug.Log("setTile, " + tile.Position.x + " , " +  tile.Position.y);
-                    tilemap.SetTile(tile.Position, tileToPlace);
-                }
-                tilemap.RefreshAllTiles();
-            }
+            TilemapManager._instance.LoadMap();
         }
-    
-        public void ClearMap() {
-            var maps = FindObjectsOfType<Tilemap>();
-            foreach (var map in maps) {
-                map.ClearAllTiles();
-            }
+
+        public void ClearMap()
+        {
+            TilemapManager._instance.ClearMap();
         }
-    
-    
+
     }
 }

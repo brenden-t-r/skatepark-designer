@@ -26,8 +26,10 @@ namespace EditorScene.UI
             }
             btnElevationUp.onClick.AddListener(ElevationUp);
             btnElevationDown.onClick.AddListener(ElevationDown);
+            BuildSettingsScriptableObject.selectedPiece = tileTypes[GameTile.TileTypes.BLOCK];
+            BuildSettingsScriptableObject.elevation = 0;
         }
-
+        
         private void BtnOnClick(Button btn)
         {
             BuildSettingsScriptableObject.selectedPiece = tileTypes[BtnToPiece(btn)];
