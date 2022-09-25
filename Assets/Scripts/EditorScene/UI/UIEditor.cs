@@ -1,6 +1,5 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.U2D;
 using UnityEngine.UI;
 using Button = UnityEngine.UI.Button;
 
@@ -18,8 +17,6 @@ namespace EditorScene.UI
         [SerializeField] private InputField saveMenuInputAuthor;
         [SerializeField] private Button saveMenuBtnSave;
         [SerializeField] private Button saveMenuBtnCancel;
-    
-        //[SerializeField] private BuildController buildController;
 
         private void Start()
         {
