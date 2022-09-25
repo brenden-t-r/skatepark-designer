@@ -3,6 +3,9 @@ using UnityEngine.UI;
 
 namespace EditorScene.UI
 {
+    /*
+     * UI Canvas scaler for use with Pixel Perfect Camera.
+     */
     public class UICustomCanvasScaler : CanvasScaler
     {
         private Canvas m_RootCanvas;

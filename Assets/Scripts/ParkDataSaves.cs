@@ -17,7 +17,7 @@ public class ParkDataSaves : ScriptableObject
                 {
                     tiles.Add(new ParkData.SavedTile{
                         Position = pos,
-                        Tile = tilemap.GetTile<GameTile>(pos)
+                        TileType = tilemap.GetTile<GameTile>(pos).type
                     });
                 }
             }
