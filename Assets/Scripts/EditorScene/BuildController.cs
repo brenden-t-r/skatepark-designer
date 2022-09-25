@@ -22,6 +22,10 @@ namespace EditorScene
         private Tile highlightedTile;
         private Vector3Int highlightedTilePos;
 
+        [SerializeField] private List<GameTile> _gameTiles;
+
+        private List<GameTile> tiles = new List<GameTile>() { new GameTile() };
+        
         private void Start()
         {
             Debug.Log(0);
@@ -148,15 +152,18 @@ namespace EditorScene
             Debug.Log(ParkDataSaves.parkData.title);
             foreach (var map in ParkDataSaves.parkData.maps)
             {
-                int index = tilemaps.FindIndex((tilemap) => tilemap.name.Equals(map.name));
+                int index = tilemaps.FindIndex((x) => x.name.Equals(map.name));
                 Debug.Log("index="+index);
                 if (index == -1) continue;
                 Tilemap tilemap = tilemaps[index];
                 Debug.Log(tilemap.name);
                 foreach (var tile in map.tiles)
                 {
-                    Debug.Log("setTile," + tile.Position.x + "," +  tile.Position.y);
-                    tilemap.SetTile(tile.Position, tile.Tile);
+                    int tileIndex = _gameTiles.FindIndex(x => x.type.Equals(tile.Tile.type));
+                    if (tileIndex == -1) continue;
+                    GameTile tileToPlace = _gameTiles[tileIndex];
+                    Debug.Log("setTile, " + tile.Position.x + " , " +  tile.Position.y);
+                    tilemap.SetTile(tile.Position, tileToPlace);
                 }
                 tilemap.RefreshAllTiles();
             }

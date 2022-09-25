@@ -1,7 +1,6 @@
 ﻿using UnityEditor;
 using UnityEngine;
 using UnityEngine.Tilemaps;
-
 public class GameTile : Tile
 {
     public enum TileTypes
@@ -18,7 +17,7 @@ public class GameTile : Tile
         base.RefreshTile(location, tilemap);
     }
     
-#if UNITY_EDITOR
+    #if UNITY_EDITOR
     // The following is a helper that adds a menu item to create a GameTile Asset
     [MenuItem("Assets/Create/GameTile")]
     public static void CreateGameTile()
@@ -29,5 +28,8 @@ public class GameTile : Tile
             return;
         AssetDatabase.CreateAsset(CreateInstance<GameTile>(), path);
     }
-#endif
+    #endif
 }
+
+
+

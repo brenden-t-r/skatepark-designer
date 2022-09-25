@@ -13,6 +13,7 @@ public class ParkData : ScriptableObject
     public class SavedTile {
         public Vector3Int Position;
         public GameTile Tile;
+       // public GameTile.TileTypes TileType;
     }
 
     [Serializable]

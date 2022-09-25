@@ -2614,6 +2614,11 @@ MonoBehaviour:
   tilemapL2: {fileID: 765370724}
   tilemapL3: {fileID: 1609101421}
   tilemapExtras: {fileID: 41997002}
+  _gameTiles:
+  - {fileID: 11400000, guid: c1e49470fc42e144696aedb48f2ccbbd, type: 2}
+  - {fileID: 11400000, guid: a62f748ad9b54f839aa16670c2e54616, type: 2}
+  - {fileID: 11400000, guid: a3fa18f93baf47f9b5d68b806c7749e7, type: 2}
+  - {fileID: 11400000, guid: 424e82a56d43450ea8c73fffa9281deb, type: 2}
 --- !u!114 &627552585
 MonoBehaviour:
   m_ObjectHideFlags: 0
