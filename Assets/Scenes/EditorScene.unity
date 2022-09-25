@@ -1882,6 +1882,7 @@ GameObject:
   - component: {fileID: 396326493}
   - component: {fileID: 396326497}
   - component: {fileID: 396326492}
+  - component: {fileID: 396326498}
   m_Layer: 5
   m_Name: UI
   m_TagString: Untagged
@@ -2009,24 +2010,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b14180ecc525ab4c9433020f52b951a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _camera: {fileID: 519420032}
-  _ppCamera: {fileID: 519420030}
   textParkName: {fileID: 1627918244}
   btnSave: {fileID: 1442887939}
   btnClear: {fileID: 1209549829}
   btnExit: {fileID: 915437148}
+  saveMenuPanel: {fileID: 60694888}
+  saveMenuInputName: {fileID: 13602771}
+  saveMenuInputAuthor: {fileID: 1319974708}
+  saveMenuBtnSave: {fileID: 1859151448}
+  saveMenuBtnCancel: {fileID: 623371951}
+--- !u!114 &396326498
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 396326491}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb1c383e009441b3a781ef74c5202f1d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   btnLeft: {fileID: 2046773274}
   btnRight: {fileID: 328246647}
   btnUp: {fileID: 1059739305}
   btnDown: {fileID: 1879130795}
   btnZoomOut: {fileID: 1444966355}
   btnZoomIn: {fileID: 197208996}
-  saveMenuPanel: {fileID: 60694888}
-  saveMenuInputName: {fileID: 13602771}
-  saveMenuInputAuthor: {fileID: 1319974708}
-  saveMenuBtnSave: {fileID: 1859151448}
-  saveMenuBtnCancel: {fileID: 623371951}
-  buildController: {fileID: 627552584}
 --- !u!1 &419609095
 GameObject:
   m_ObjectHideFlags: 0
