@@ -1,6 +1,21 @@
 ﻿- UI Dialog prefab / general component
     - OkText, OkCallback, List<Inputs>, Prompt
-    
-- Cleaning up dependencies
 
-- Reworking serialization system and fix initial load bug
+- Build improvements 
+    - Bigger pieces, as combination of smaller units
+    - Rotation of pieces
+    - Visualize current elevation level
+    - Don't allow floating pieces
+    - Rail pieces
+    - Stair pieces
+    
+- Moving camera view of park
+
+- Save file thumbnails
+
+- Online persistance
+    
+- Payment system
+
+- Rotation of field of view
+

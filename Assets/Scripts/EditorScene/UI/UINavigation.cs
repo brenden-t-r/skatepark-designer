@@ -4,7 +4,9 @@ using UnityEngine.UI;
 
 namespace EditorScene.UI
 {
-    
+    /*
+     * Camera panning and Pixel Perfect "zooming".
+     */
     public class UINavigation : MonoBehaviour
     {
         private readonly float PAN_SPEED = 1f;
