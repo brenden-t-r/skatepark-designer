@@ -79,7 +79,7 @@ namespace EditorScene
                 Tilemap mapToPopulate = tilemaps[index];
                 foreach (var tile in map.tiles)
                 {
-                    int tileIndex = gameTiles.FindIndex(x => x.type.Equals(tile.Tile.type));
+                    int tileIndex = gameTiles.FindIndex(x => x.type.Equals(tile.TileType));
                     if (tileIndex == -1) continue;
                     GameTile tileToPlace = gameTiles[tileIndex];
                     Debug.Log("setTile, " + tile.Position.x + " , " +  tile.Position.y);
