@@ -1,0 +1,67 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fbda9239ca5d4794b1235649af8b01ff, type: 3}
+  m_Name: zMultiRampFront
+  m_EditorClassIdentifier: Assembly-CSharp::MultiTile
+  sprite: {fileID: 21300000, guid: 1a8d3988489f3b647abd67df9ade8672, type: 3}
+  type: 7
+  tilePieces:
+  - x: 0
+    y: 0
+    z: 0
+    elevation: 0
+    tile: {fileID: 11400000, guid: 3c26fd2f33972a744a2582c474551b9a, type: 2}
+  - x: 0
+    y: 1
+    z: 0
+    elevation: 1
+    tile: {fileID: 11400000, guid: 84e04c791b0f99947a1194a4c7181978, type: 2}
+  - x: 1
+    y: 1
+    z: 0
+    elevation: 1
+    tile: {fileID: 11400000, guid: d9ab801f70ee6294a89cad6e35ce7ac5, type: 2}
+  - x: 1
+    y: 0
+    z: 0
+    elevation: 0
+    tile: {fileID: 11400000, guid: fe1dfa0c4123ae645a0c63717da3be90, type: 2}
+  - x: 2
+    y: 0
+    z: 0
+    elevation: 0
+    tile: {fileID: 11400000, guid: da3198ae8b349c64f870a2c8a5311aaf, type: 2}
+  - x: 1
+    y: 2
+    z: 0
+    elevation: 2
+    tile: {fileID: 11400000, guid: 52bb8747eb40a3f40a2c03851d6742b3, type: 2}
+  - x: -1
+    y: 0
+    z: 0
+    elevation: 0
+    tile: {fileID: 11400000, guid: c1e49470fc42e144696aedb48f2ccbbd, type: 2}
+  - x: -2
+    y: 0
+    z: 0
+    elevation: 0
+    tile: {fileID: 11400000, guid: c1e49470fc42e144696aedb48f2ccbbd, type: 2}
+  - x: 0
+    y: 2
+    z: 0
+    elevation: 2
+    tile: {fileID: 11400000, guid: c1e49470fc42e144696aedb48f2ccbbd, type: 2}
+  - x: -1
+    y: 1
+    z: 0
+    elevation: 1
+    tile: {fileID: 11400000, guid: c1e49470fc42e144696aedb48f2ccbbd, type: 2}

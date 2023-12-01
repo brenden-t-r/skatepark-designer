@@ -75,8 +75,8 @@ namespace EditorScene.UI
                     return GameTile.TileTypes.RAMP;
                 case "BtnBuildBlockRampFront":
                     return GameTile.TileTypes.RAMP_FRONT;
-                case "BtnBuildBlockMultiTest":
-                    return GameTile.TileTypes.Z_MULTI_TEST;
+                case "BtnBuildBlockMultiRampFront":
+                    return GameTile.TileTypes.Z_MULTI_RAMP_FRONT;
                 case "BtnBuildBlockMultiRampBack":
                     return GameTile.TileTypes.Z_MULTI_RAMP;
                 default:

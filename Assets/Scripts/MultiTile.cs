@@ -7,7 +7,7 @@ public class MultiTile : ScriptableObject
 {
     public static List<GameTile.TileTypes> multiTileTypes = new()
     {
-        GameTile.TileTypes.Z_MULTI_TEST, GameTile.TileTypes.Z_MULTI_RAMP
+        GameTile.TileTypes.Z_MULTI_TEST, GameTile.TileTypes.Z_MULTI_RAMP, GameTile.TileTypes.Z_MULTI_RAMP_FRONT
         
     };
     

@@ -136,7 +136,7 @@ GameObject:
   - component: {fileID: 10494461}
   - component: {fileID: 10494460}
   m_Layer: 5
-  m_Name: BtnBuildBlockMultiTest
+  m_Name: BtnBuildBlockMultiRampFront
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -225,7 +225,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+  m_Sprite: {fileID: 21300000, guid: 1a8d3988489f3b647abd67df9ade8672, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2052,6 +2052,7 @@ MonoBehaviour:
   multiTiles:
   - {fileID: 11400000, guid: 011e476ec9ecd2541aab2fa35038cf56, type: 2}
   - {fileID: 11400000, guid: fd5044a87dfd2dd439ecbb74b02c96e0, type: 2}
+  - {fileID: 11400000, guid: f236aa770dff12748b1f651aae1b8e20, type: 2}
 --- !u!114 &396326493
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2375,7 +2376,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &498364753
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3295,7 +3296,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 425, y: 0}
+  m_AnchoredPosition: {x: 250, y: 0}
   m_SizeDelta: {x: 64, y: 64}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &846726837
