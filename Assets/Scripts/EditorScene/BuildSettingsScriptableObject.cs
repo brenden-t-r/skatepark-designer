@@ -17,14 +17,4 @@ namespace EditorScene
     {
         public List<TilePiece> tilePieces;
     }
-
-    // public class TilePiece
-    // {
-    //     // Relative to tile clicked
-    //     public int x; 
-    //     public int y;
-    //     public int z;
-    //     public int elevation;
-    //     public GameTile tile;
-    // }
 }

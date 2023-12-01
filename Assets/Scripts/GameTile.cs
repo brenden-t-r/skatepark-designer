@@ -11,7 +11,14 @@ public class GameTile : Tile
         RAMP, RAMP_FRONT,
         
         // Multi
-        Z_MULTI_TEST, Z_MULTI_RAMP
+        Z_MULTI_TEST, Z_MULTI_RAMP,
+        
+        // Multi Ramp Back
+        Z_P_RAMP_BACK_1,
+        Z_P_RAMP_BACK_2,
+        Z_P_RAMP_BACK_3,
+        Z_P_RAMP_BACK_4,
+        Z_P_RAMP_BACK_5
     }
     
     public TileTypes type;

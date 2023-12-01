@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
@@ -38,44 +39,14 @@ namespace EditorScene
             return TilemapManager._instance.grid.WorldToCell(mouseWorldPos);
         }
 
-        private bool CanPlay(Vector3Int gridPos)
-        {
-            if (activeTilemap.HasTile(gridPos))
-            {
-                return false;
-            }
-            
-            if (TilemapManager._instance.multiTilePieceMap.ContainsKey(gridPos))
-            {
-                return false;
-            }
-
-            if (BuildSettingsScriptableObject.isMultiTilePiece)
-            {
-                // Multiple tiles, relative to gridPos Vector3Int
-
-                foreach (TilePiece piece in BuildSettingsScriptableObject.multiTilePiece.tilePieces)
-                {
-                    var pos = new Vector3Int(
-                        x: gridPos.x + piece.x,
-                        y: gridPos.y + piece.y,
-                        z: gridPos.z + piece.z
-                    );
-                    if (TilemapManager._instance.multiTilePieceMap.ContainsKey(pos))
-                    {
-                        return false;
-                    }
-                }
-            }
-
-            return true;
-        }
-
         private void ClickEvent(Vector3Int gridPos)
         {
             SetActiveTilemap();
             
-            if (TilemapManager._instance.multiTilePieceMap.ContainsKey(gridPos)) {
+            var multiTileMapKey = TilemapManager
+                ._instance
+                .GetMultiTileMapKey(gridPos, BuildSettingsScriptableObject.elevation);
+            if (TilemapManager._instance.multiTilePieceMap.ContainsKey(multiTileMapKey.GetKey())) {
                  // maybe just don't allow for now, or remove whole piece?
                  Debug.Log("Can't place tile here because it's part of multi-tile piece");
                  return;
@@ -91,7 +62,9 @@ namespace EditorScene
                       y: gridPos.y + piece.y,
                       z: gridPos.z + piece.z
                   );
-                  if (TilemapManager._instance.multiTilePieceMap.ContainsKey(pos))
+                  int elevation = BuildSettingsScriptableObject.elevation + piece.elevation;
+                  var mapKey = TilemapManager._instance.GetMultiTileMapKey(pos, elevation);
+                  if (TilemapManager._instance.multiTilePieceMap.ContainsKey(mapKey.GetKey()))
                   {
                       // maybe just don't allow for now, or remove whole piece?
                       Debug.Log("Can't place tile here because it's part of multi-tile piece");
@@ -105,18 +78,24 @@ namespace EditorScene
                       y: gridPos.y + piece.y,
                       z: gridPos.z + piece.z
                   );
-                  // Get active tilemap based on piece.elevation
                   int elevation = BuildSettingsScriptableObject.elevation + piece.elevation;
+                  var mapKey = TilemapManager._instance.GetMultiTileMapKey(pos, elevation);
+                  // Get active tilemap based on piece.elevation
                   Tilemap tilemap = TilemapManager
                       ._instance
                       .GetTilemapFromElevation(elevation);
                   tilemap.SetTile(pos, piece.tile);
-                  TilemapManager._instance.multiTilePieceMap[pos] = new TilemapManager.MultiTilePieceMapElement
+                  TilemapManager._instance.multiTilePieceMap[mapKey.GetKey()] = new TilemapManager.MultiTilePieceMapElement
                   {
-                      rootPos = gridPos,
+                      rootPos = multiTileMapKey,
                       piece = BuildSettingsScriptableObject.multiTilePiece
                   };
+                  
               }
+
+              // var res = TilemapManager._instance.multiTilePieceMap.Keys;
+              // var str = String.Join(",", res);
+              // Debug.Log(str);
             } else {
               // Single piece
               activeTilemap.SetTile(gridPos, BuildSettingsScriptableObject.selectedPiece);
@@ -128,10 +107,12 @@ namespace EditorScene
             SetActiveTilemap();
             
             // Delete all tiles in multi-tile piece
+            var multiTileMapKey = TilemapManager._instance
+                .GetMultiTileMapKey(gridPos, BuildSettingsScriptableObject.elevation);
             if (TilemapManager._instance.multiTilePieceMap
-                .TryGetValue(gridPos, out TilemapManager.MultiTilePieceMapElement element))
+                .TryGetValue(multiTileMapKey.GetKey(), out TilemapManager.MultiTilePieceMapElement element))
             {
-                MultiTilePiece multi = TilemapManager._instance.multiTilePieceMap[element.rootPos].piece;
+                MultiTilePiece multi = TilemapManager._instance.multiTilePieceMap[element.rootPos.GetKey()].piece;
                 foreach (TilePiece tilePiece in multi.tilePieces)
                 {
                     var pos = new Vector3Int(
@@ -140,11 +121,18 @@ namespace EditorScene
                         z: element.rootPos.z + tilePiece.z
                     );
                     int elevation = BuildSettingsScriptableObject.elevation + tilePiece.elevation;
+                    var mapKey = new TilemapManager.MultiTilePieceMapKey()
+                    {
+                        x = pos.x,
+                        y = pos.y,
+                        z = pos.z,
+                        elevation = elevation
+                    };
                     Tilemap tilemap = TilemapManager
                         ._instance
                         .GetTilemapFromElevation(elevation);
                     tilemap.SetTile(pos, null);
-                    TilemapManager._instance.multiTilePieceMap.Remove(pos);
+                    TilemapManager._instance.multiTilePieceMap.Remove(mapKey.GetKey());
                 }
                 
             }
@@ -191,14 +179,6 @@ namespace EditorScene
 
             if (CanPlay(hoverPos))
             {
-                // tilemapExtrasRenderer.material.SetColor ("_TintColor", 
-                //     new Color(
-                //         r: 255,
-                //         g: 255,
-                //         b: 255,
-                //         a: 255
-                //     )
-                // );
                 tilemapExtras.color = new Color(
                     r: 255,
                     g: 25,
@@ -207,7 +187,6 @@ namespace EditorScene
                 );
             } else
             {
-                Debug.Log("Cannot play");
                 tilemapExtras.color = new Color(
                     r: 255,
                     g: 0,
@@ -227,24 +206,6 @@ namespace EditorScene
                     );
                     highlightedTiles.Add(pos);
                     tilemapExtras.SetTile(pos, piece.tile);
-                    // foreach (TilePiece piece in BuildSettingsScriptableObject.multiTilePiece.tilePieces) {
-                    //     var pos = new Vector3Int(
-                    //         x: gridPos.x + piece.x,
-                    //         y: gridPos.y + piece.y,
-                    //         z: gridPos.z + piece.z
-                    //     );
-                    //     // Get active tilemap based on piece.elevation
-                    //     int elevation = BuildSettingsScriptableObject.elevation + piece.elevation;
-                    //     Tilemap tilemap = TilemapManager
-                    //         ._instance
-                    //         .GetTilemapFromElevation(elevation);
-                    //     tilemap.SetTile(pos, piece.tile);
-                    //     TilemapManager._instance.multiTilePieceMap[pos] = new TilemapManager.MultiTilePieceMapElement
-                    //     {
-                    //         rootPos = gridPos,
-                    //         piece = BuildSettingsScriptableObject.multiTilePiece
-                    //     };
-                    // }
                 }
             }
             else
@@ -259,6 +220,47 @@ namespace EditorScene
             tilemapExtras.SetTile(highlightedTilePos, null);
             highlightedTiles.ForEach(x => { tilemapExtras.SetTile(x, null); });
             highlightedTiles = new List<Vector3Int>();
+        }
+        
+        private bool CanPlay(Vector3Int gridPos)
+        {
+            SetActiveTilemap();
+            
+            if (activeTilemap.HasTile(gridPos))
+            {
+                return false;
+            }
+            
+            var multiTileMapKey = TilemapManager
+                ._instance
+                .GetMultiTileMapKey(gridPos, BuildSettingsScriptableObject.elevation);
+            if (TilemapManager._instance.multiTilePieceMap.ContainsKey(multiTileMapKey.GetKey()))
+            {
+                return false;
+            }
+
+            if (BuildSettingsScriptableObject.isMultiTilePiece)
+            {
+                // Multiple tiles, relative to gridPos Vector3Int
+
+                foreach (TilePiece piece in BuildSettingsScriptableObject.multiTilePiece.tilePieces)
+                {
+                    var pos = new Vector3Int(
+                        x: gridPos.x + piece.x,
+                        y: gridPos.y + piece.y,
+                        z: gridPos.z + piece.z
+                    );
+                    var mapKey = TilemapManager
+                        ._instance
+                        .GetMultiTileMapKey(pos, piece.elevation + BuildSettingsScriptableObject.elevation);
+                    if (TilemapManager._instance.multiTilePieceMap.ContainsKey(mapKey.GetKey()))
+                    {
+                        return false;
+                    }
+                }
+            }
+
+            return true;
         }
 
         public void SaveMap()

@@ -77,6 +77,8 @@ namespace EditorScene.UI
                     return GameTile.TileTypes.RAMP_FRONT;
                 case "BtnBuildBlockMultiTest":
                     return GameTile.TileTypes.Z_MULTI_TEST;
+                case "BtnBuildBlockMultiRampBack":
+                    return GameTile.TileTypes.Z_MULTI_RAMP;
                 default:
                     Debug.LogError("Invalid build button name");
                     return GameTile.TileTypes.BLOCK;

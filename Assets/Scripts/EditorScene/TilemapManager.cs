@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -19,12 +20,22 @@ namespace EditorScene
         private List<Tilemap> tilemaps;
 
         // Multiple pieces per tile management
-        public Dictionary<Vector3Int, MultiTilePieceMapElement> multiTilePieceMap = new();
+        public class MultiTilePieceMapKey
+        {
+            public int x, y, z, elevation;
+
+            public string GetKey()
+            {
+                return $"({x},{y},{z},{elevation})";
+            }
+        }
+        
+        public Dictionary<String, MultiTilePieceMapElement> multiTilePieceMap = new();
 
         public class MultiTilePieceMapElement
         {
             public MultiTilePiece piece;
-            public Vector3Int rootPos;
+            public MultiTilePieceMapKey rootPos;
         }
         
         private void Start()
@@ -103,7 +114,33 @@ namespace EditorScene
             foreach (var map in maps) {
                 map.ClearAllTiles();
             }
-            multiTilePieceMap = new Dictionary<Vector3Int, MultiTilePieceMapElement>();
+            multiTilePieceMap = new Dictionary<String, MultiTilePieceMapElement>();
+        }
+
+        public MultiTilePieceMapKey GetMultiTileMapKey(Vector3Int pos, int elevation)
+        {
+            var key = new MultiTilePieceMapKey
+            {
+                x = pos.x,
+                y = pos.y,
+                z = pos.z,
+                elevation = elevation
+            };
+            return key;
+        }
+
+        public MultiTilePieceMapElement GetMultiTilePieceMapElement(Vector3Int pos, int elevation)
+        {
+            var key = new MultiTilePieceMapKey
+            {
+                x = pos.x,
+                y = pos.y,
+                z = pos.z,
+                elevation = elevation
+            };
+            MultiTilePieceMapElement element;
+            bool hasKey = multiTilePieceMap.TryGetValue(key.GetKey(), out element);
+            return hasKey ? element : null;
         }
     }
 }
