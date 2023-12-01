@@ -18,6 +18,15 @@ namespace EditorScene
         [SerializeField] private List<GameTile> gameTiles;
         private List<Tilemap> tilemaps;
 
+        // Multiple pieces per tile management
+        public Dictionary<Vector3Int, MultiTilePieceMapElement> multiTilePieceMap = new();
+
+        public class MultiTilePieceMapElement
+        {
+            public MultiTilePiece piece;
+            public Vector3Int rootPos;
+        }
+        
         private void Start()
         {
             _instance = this;
@@ -94,6 +103,7 @@ namespace EditorScene
             foreach (var map in maps) {
                 map.ClearAllTiles();
             }
+            multiTilePieceMap = new Dictionary<Vector3Int, MultiTilePieceMapElement>();
         }
     }
 }

@@ -1,4 +1,6 @@
-﻿using UnityEditor;
+﻿using System;
+using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 public class GameTile : Tile
@@ -6,7 +8,10 @@ public class GameTile : Tile
     public enum TileTypes
     {
         BLOCK, BLOCK_HALF, BLOCK_CORNER, 
-        RAMP, RAMP_FRONT
+        RAMP, RAMP_FRONT,
+        
+        // Multi
+        Z_MULTI_TEST, Z_MULTI_RAMP
     }
     
     public TileTypes type;
@@ -30,6 +35,3 @@ public class GameTile : Tile
     }
     #endif
 }
-
-
-
